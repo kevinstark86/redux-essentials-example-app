@@ -5,6 +5,7 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom'
+import PostLists from './app/PostLists'
 
 import { Navbar } from './app/Navbar'
 
@@ -18,9 +19,9 @@ function App() {
             exact
             path="/"
             render={() => (
-              <section>
-                <h2>Welcome to the Redux Essentials example app!</h2>
-              </section>
+              <>
+                <PostLists />
+              </>
             )}
           />
           <Redirect to="/" />
