@@ -1,4 +1,4 @@
-import React, { useState } from 'React'
+import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { postUpdated } from './postSlice'
 import { useHistory } from 'react-router-dom'
@@ -10,7 +10,7 @@ export const EditPostForm = ({ match }) => {
   )
 
   const [title, setTitle] = useState(post.title)
-  const [content, setContent] = useState(post.title)
+  const [content, setContent] = useState(post.content)
 
   const dispatch = useDispatch()
   const history = useHistory()

@@ -6,7 +6,7 @@ import {
   Redirect,
 } from 'react-router-dom'
 import AddPostForm from './features/posts/AddPostForm'
-import PostLists from './app/PostLists'
+import PostLists from './features/posts/PostLists'
 import { SinglePostPage } from './features/posts/SinglePostPage'
 import { EditPostForm } from './features/posts/EditPostsForm'
 
@@ -28,7 +28,7 @@ function App() {
               </>
             )}
           />
-          <Redirect to="/" />
+
           <Route exact path="/posts/:postId" component={SinglePostPage} />
           <Route exact path="/editPost/:postId" component={EditPostForm} />
           <Redirect to="/" />
