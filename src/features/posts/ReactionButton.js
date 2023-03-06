@@ -17,7 +17,9 @@ export const ReactionButtons = ({ post }) => {
         key={name}
         type="button"
         className="muted-button reaction-button"
-        onClick={dispatch(reactionAdded({ id: post.id, reaction: name }))}
+        onClick={() =>
+          dispatch(reactionAdded({ postId: post.id, reaction: name }))
+        }
       >
         {emoji} {post.reactions[name]}
       </button>
