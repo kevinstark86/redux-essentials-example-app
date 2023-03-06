@@ -8,6 +8,7 @@ const initialState = [
     user: '',
     title: 'First Post!',
     content: 'Hello!',
+    reactions: { thumbsUp: 0, hooray: 0, heart: 0, rocket: 0, eyes: 0 },
   },
   {
     id: '2',
@@ -15,6 +16,7 @@ const initialState = [
     user: '',
     title: 'Second Post!',
     content: 'More Content',
+    reactions: { thumbsUp: 0, hooray: 0, heart: 0, rocket: 0, eyes: 0 },
   },
 ]
 
@@ -38,6 +40,7 @@ const postSlice = createSlice({
             title,
             content,
             user: userId,
+            reactions: { thumbsUp: 0, hooray: 0, heart: 0, rocket: 0, eyes: 0 },
           },
         }
       },
