@@ -5,7 +5,9 @@ import { TimeAgo } from './TimeAgo'
 
 const PostLists = () => {
   const posts = useSelector((state) => state.posts)
-  const orderedPosts = posts.slice().sort((a, b) => b.date.localCompare(a.date))
+  const orderedPosts = posts
+    .slice()
+    .sort((a, b) => b.date.localeCompare(a.date))
 
   const renderedPosts = orderedPosts.map((item) => {
     return (
