@@ -4,8 +4,9 @@ import { PostAuthor } from './PostAuthor'
 
 const PostLists = () => {
   const posts = useSelector((state) => state.posts)
+  const orderedPosts = posts.slice().sort((a, b) => b.date.localCompare(a.date))
 
-  const renderedPosts = posts.map((item) => {
+  const renderedPosts = orderedPosts.map((item) => {
     return (
       <article className="post-excerpt" key={item.id}>
         <h3>{item.title}</h3>
