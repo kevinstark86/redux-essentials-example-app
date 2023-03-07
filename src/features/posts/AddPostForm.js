@@ -17,7 +17,7 @@ const AddPostForm = () => {
   const onAuthorChanged = (e) => setUserId(e.target.value)
 
   const canSave =
-    [title, content, userId].every(Boolean) && addRequestStatus === 'idle '
+    [title, content, userId].every(Boolean) && addRequestStatus === 'idle'
 
   const onSavePostClicked = async () => {
     if (canSave) {
