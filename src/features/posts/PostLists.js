@@ -8,6 +8,8 @@ import { PostAuthor } from './PostAuthor'
 import { TimeAgo } from './TimeAgo'
 import { ReactionButtons } from './ReactionButton'
 
+import { useGetPostQuery } from '../api/apiSlice'
+
 const PostExcerpt = ({ post }) => {
   return (
     <article className="post-excerpt" key={post.id}>
@@ -24,22 +26,19 @@ const PostExcerpt = ({ post }) => {
 }
 
 const PostLists = () => {
-  const dispatch = useDispatch()
-  const posts = useSelector(selectAllPosts)
-  const postStatus = useSelector((state) => state.posts.status)
-  const error = useSelector((state) => state.posts.error)
-
-  useEffect(() => {
-    if (postStatus === 'idle') {
-      dispatch(fetchPosts())
-    }
-  }, [postStatus, dispatch])
+  const {
+    data: posts,
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+  } = useGetPostQuery()
 
   let content
 
-  if (postStatus === 'loading') {
+  if (isLoading) {
     content = <Spinner text="Loading..." />
-  } else if (postStatus === 'succeeded') {
+  } else if (isSuccess) {
     const orderedPosts = posts
       .slice()
       .sort((a, b) => b.date.localeCompare(a.date))
@@ -47,8 +46,8 @@ const PostLists = () => {
     content = orderedPosts.map((post) => {
       return <PostExcerpt key={post.id} post={post} />
     })
-  } else if (postStatus === 'error') {
-    content = <div>{error}</div>
+  } else if (isError) {
+    content = <div>{error.toString()}</div>
   }
 
   return (
