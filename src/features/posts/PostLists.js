@@ -6,9 +6,9 @@ import { PostAuthor } from './PostAuthor'
 import { TimeAgo } from './TimeAgo'
 import { ReactionButtons } from './ReactionButton'
 
-import { useGetPostQuery } from '../api/apiSlice'
+import { useGetPostsQuery } from '../api/apiSlice'
 
-let PostExcerpt = ({ post }) => {
+export let PostExcerpt = ({ post }) => {
   return (
     <article className="post-excerpt" key={post.id}>
       <h3>{post.title}</h3>
@@ -30,7 +30,7 @@ const PostLists = () => {
     isSuccess,
     isError,
     error,
-  } = useGetPostQuery()
+  } = useGetPostsQuery()
 
   let content
 

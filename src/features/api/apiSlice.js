@@ -10,4 +10,4 @@ export const apiSlice = createApi({
   }),
 })
 
-export const { useGetPostQuery } = apiSlice
+export const { useGetPostsQuery } = apiSlice
