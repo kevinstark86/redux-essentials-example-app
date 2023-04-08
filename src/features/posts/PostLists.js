@@ -2,6 +2,7 @@ import React, { useMemo } from 'react'
 import { Spinner } from '../../components/Spinner'
 
 import { Link } from 'react-router-dom'
+import classnames from 'classnames'
 import { PostAuthor } from './PostAuthor'
 import { TimeAgo } from './TimeAgo'
 import { ReactionButtons } from './ReactionButton'
@@ -28,8 +29,10 @@ const PostLists = () => {
     data: posts = [],
     isLoading,
     isSuccess,
+    isFetching,
     isError,
     error,
+    refetch,
   } = useGetPostsQuery()
 
   const orderedPosts = useMemo(() => {
@@ -47,6 +50,10 @@ const PostLists = () => {
     content = orderedPosts.map((post) => {
       return <PostExcerpt key={post.id} post={post} />
     })
+    const containerClassname = classnames('posts-container', {
+      disabled: isFetching,
+    })
+    content = <div className={containerClassname}>{orderedPosts}</div>
   } else if (isError) {
     content = <div>{error.toString()}</div>
   }
@@ -54,6 +61,7 @@ const PostLists = () => {
   return (
     <section className="posts-lists">
       <h2>Posts</h2>
+      <button onClick={refetch}>Refetch Posts</button>
       {content}
     </section>
   )
