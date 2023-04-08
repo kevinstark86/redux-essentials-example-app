@@ -50,10 +50,6 @@ const PostLists = () => {
     content = orderedPosts.map((post) => {
       return <PostExcerpt key={post.id} post={post} />
     })
-    const containerClassname = classnames('posts-container', {
-      disabled: isFetching,
-    })
-    content = <div className={containerClassname}>{orderedPosts}</div>
   } else if (isError) {
     content = <div>{error.toString()}</div>
   }
