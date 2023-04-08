@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Spinner } from '../../components/Spinner'
 
 import { Link } from 'react-router-dom'
@@ -25,22 +25,25 @@ export let PostExcerpt = ({ post }) => {
 
 const PostLists = () => {
   const {
-    data: posts,
+    data: posts = [],
     isLoading,
     isSuccess,
     isError,
     error,
   } = useGetPostsQuery()
 
+  const orderedPosts = useMemo(() => {
+    const orderedPosts = posts
+      .slice()
+      .sort((a, b) => b.date.localeCompare(a.date))
+    return orderedPosts
+  }, [posts])
+
   let content
 
   if (isLoading) {
     content = <Spinner text="Loading..." />
   } else if (isSuccess) {
-    const orderedPosts = posts
-      .slice()
-      .sort((a, b) => b.date.localeCompare(a.date))
-
     content = orderedPosts.map((post) => {
       return <PostExcerpt key={post.id} post={post} />
     })

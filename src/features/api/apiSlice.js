@@ -7,7 +7,10 @@ export const apiSlice = createApi({
     getPosts: builder.query({
       query: () => '/posts',
     }),
+    getSinglePost: builder.query({
+      query: (postId) => `/posts/${postId}`,
+    }),
   }),
 })
 
-export const { useGetPostsQuery } = apiSlice
+export const { useGetPostsQuery, useGetSinglePostQuery } = apiSlice

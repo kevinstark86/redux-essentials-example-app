@@ -1,33 +1,46 @@
-import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { selectPostsById } from './postSlice'
 import { PostAuthor } from './PostAuthor'
 import { TimeAgo } from './TimeAgo'
 import { ReactionButtons } from './ReactionButton'
+import { useGetSinglePostQuery } from '../api/apiSlice'
+import Loading from '../../components/Loading'
+import Error from '../../components/Error'
 
 export const SinglePostPage = ({ match }) => {
   const { postId } = match.params
 
-  const post = useSelector((state) => selectPostsById(state, postId))
+  const {
+    data: post,
+    isFetching,
+    isSuccess,
+    isError,
+  } = useGetSinglePostQuery(postId)
 
-  if (!post) {
+  let content
+
+  const components = {
+    loading: <Loading text="Loading..." />,
+    error: <Error text="Post Not Found!!" />,
+  }
+
+  if (isError) {
+    return <>{components['error']}</>
+  }
+  if (isFetching) {
+    return <>{components['loading']}</>
+  } else if (isSuccess) {
     return (
       <section>
-        <h2>Post Not Found!!</h2>
+        <article className="post">
+          <h2>{post.title}</h2>
+          <PostAuthor userId={post.user} />
+          <TimeAgo timeStamp={post.date} />
+          <ReactionButtons post={post} />
+          <p className="post-content">{post.content}</p>
+          <Link to={`/editPost/${post.id}`}>Edit Post</Link>
+        </article>
       </section>
     )
   }
-
-  return (
-    <section>
-      <article className="post">
-        <h2>{post.title}</h2>
-        <PostAuthor userId={post.user} />
-        <TimeAgo timeStamp={post.date} />
-        <ReactionButtons post={post} />
-        <p className="post-content">{post.content}</p>
-        <Link to={`/editPost/${post.id}`}>Edit Post</Link>
-      </article>
-    </section>
-  )
+  return <section>{content}</section>
 }
